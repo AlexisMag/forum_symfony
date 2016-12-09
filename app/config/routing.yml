@@ -1,0 +1,8 @@
+forum:
+    resource: "@ForumBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
