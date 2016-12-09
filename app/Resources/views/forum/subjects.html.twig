@@ -28,9 +28,11 @@
                     {% endif %}
                 </small>
             </li>
-
+        {% else %}
+            <li class="list-group-item text-center lead">
+                No subject
+            </li>
         {% endfor %}
-
     </ul>
 </div>
 {% endblock %}

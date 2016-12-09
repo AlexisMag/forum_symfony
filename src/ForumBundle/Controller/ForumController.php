@@ -36,7 +36,7 @@ class ForumController extends Controller
 
     /**
     * All forums
-    * @Route("/forum", name="list_forum")
+    * @Route("/forum", name="forums")
     */
     public function forumAction(Request $request){
         //Get all forums from database
