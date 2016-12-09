@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>
+    Forums
+</h1>
+
+<div class="panel panel-default">
+    <ul class="list-group">
+        {% for forum in forums %}
+            <li class="list-group-item">
+                <a href="{{path('subjects', {'slug':forum.slug})}}">                    
+                    {{forum.name}}
+                </a>
+            </li>
+
+        {% endfor %}
+
+    </ul>
+</div>
+
+{% endblock %}
