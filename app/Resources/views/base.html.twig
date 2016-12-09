@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{{title}}</title>
         {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
         {% endblock %}
@@ -31,7 +31,7 @@
         </nav>
 
         <div class="container">
-            {% block body %}{% endblock %}            
+            {% block body %}{% endblock %}
         </div>
 
         {% block javascripts %}{% endblock %}

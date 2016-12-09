@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>
+    {{title}}
+</h1>
+
+<div >
+    <a href="#" role="button" class="btn btn-success">
+        New subject
+    </a>
+</div>
+<br>
+<div class="panel panel-default">
+    <ul class="list-group">
+        {% for subject in subjects %}
+            <li class="list-group-item">
+                <a href="">
+                    {{subject.title}}
+                </a>
+                <br>
+                <small>
+                    {% if subject.subtitle %}
+                        {{subject.subtitle}}
+                    {% else %}
+                        &nbsp;
+                    {% endif %}
+                </small>
+            </li>
+
+        {% endfor %}
+
+    </ul>
+</div>
+{% endblock %}

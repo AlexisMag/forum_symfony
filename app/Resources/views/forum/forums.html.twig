@@ -2,14 +2,14 @@
 
 {% block body %}
 <h1>
-    Forums
+    {{title}}
 </h1>
 
 <div class="panel panel-default">
     <ul class="list-group">
         {% for forum in forums %}
             <li class="list-group-item">
-                <a href="{{path('subjects', {'slug':forum.slug})}}">                    
+                <a href="{{path('subjects', {'slug':forum.slug})}}">
                     {{forum.name}}
                 </a>
             </li>

@@ -41,10 +41,10 @@ class ForumController extends Controller
     public function forumAction(Request $request){
         //Get all forums from database
         $repository = $this->getDoctrine()->getRepository('ForumBundle:Forum');
-
         $forums = $repository->findAll();
 
         return $this->render("forum/forums.html.twig", array(
+            "title" => "Forums",
             "forums" => $forums
         ));
     }
@@ -53,8 +53,22 @@ class ForumController extends Controller
     * All subjects of a forum
     * @Route("/forum/category/{slug}", name="subjects")
     */
-    public function subjectsAction(Request $request){
+    public function subjectsAction($slug){
 
+        //Get all subjects from this forum
+        $repository = $this->getDoctrine()->getRepository('ForumBundle:Forum');
+        $forum = $repository->findOneBySlug($slug);
+
+        $repository = $this->getDoctrine()->getRepository('ForumBundle:Subject');
+        $subjects = $repository->findByForumId($forum->getId());
+
+
+
+        return $this->render('forum/subjects.html.twig', array(
+            'title' => $forum->getName(),
+            'forum' => $forum,
+            'subjects' => $subjects
+        ));
     }
 
     /**
