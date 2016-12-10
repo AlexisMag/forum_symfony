@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>
+        {{title}}
+    </h1>
+
+    {{form_start(form)}}
+
+    <div class="form-group">
+        {{form_label(form.subject.title, 'Title')}}
+        {{form_widget(form.subject.title, {'attr':{
+            'class':'form-control',
+            'placeholder':'Title of the subject'
+        }}) }}
+    </div>
+
+    <div class="form-group">
+        {{form_label(form.subject.subtitle, 'Subtitle')}}
+        {{form_widget(form.subject.subtitle, {'attr':{
+            'class':'form-control'
+        }} )}}
+    </div>
+
+    <div class="form-group">
+        {{form_label(form.content, 'Content')}}
+        {{form_widget(form.content, {'attr':{
+            'class':'form-control',
+            'rows':'20'
+        }} )}}
+    </div>
+
+    <div class="text-center col-md-12">
+        {{form_widget(form.save, {'attr':{
+            'class':'btn btn-success  '
+        }})}}
+    </div>
+
+    {{form_end(form)}}
+    <br>
+    <br>
+{% endblock %}

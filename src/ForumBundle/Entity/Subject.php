@@ -49,7 +49,10 @@ class Subject
     */
     private $forum;
 
-
+    /**
+    * @ORM\OneToMany(targetEntity="Message", mappedBy="subject")
+    */
+    private $messages;
 
     /**
      * Get id
@@ -179,5 +182,46 @@ class Subject
     public function getForum()
     {
         return $this->forum;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add message
+     *
+     * @param \ForumBundle\Entity\Message $message
+     *
+     * @return Subject
+     */
+    public function addMessage(\ForumBundle\Entity\Message $message)
+    {
+        $this->messages[] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Remove message
+     *
+     * @param \ForumBundle\Entity\Message $message
+     */
+    public function removeMessage(\ForumBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

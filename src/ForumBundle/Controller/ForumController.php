@@ -8,7 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ForumBundle\Entity\Forum;
 use ForumBundle\Entity\Subject;
+use ForumBundle\Entity\Message;
 use ForumBundle\Form\SubjectType;
+use ForumBundle\Form\MessageType;
 
 class ForumController extends Controller
 {
@@ -59,6 +61,14 @@ class ForumController extends Controller
     */
     public function createSubjectAction($forum_id){
 
+        $message = new Message();
+
+        $form = $this->createForm(MessageType::class, $message);
+
+        return $this->render("forum/create_subject.html.twig", array(
+            'title' => 'New subject',
+            'form' => $form->createView()
+        ));
     }
 
     /**

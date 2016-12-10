@@ -49,7 +49,10 @@ class Subject
     */
     private $forum;
 
-
+    /**
+    * @ORM\OneToMany(targetEntity="Message", mappedBy="subject")
+    */
+    private $messages;
 
     /**
      * Get id
@@ -155,5 +158,29 @@ class Subject
     public function getForumId()
     {
         return $this->forumId;
+    }
+
+    /**
+     * Set forum
+     *
+     * @param \ForumBundle\Entity\Forum $forum
+     *
+     * @return Subject
+     */
+    public function setForum(\ForumBundle\Entity\Forum $forum = null)
+    {
+        $this->forum = $forum;
+
+        return $this;
+    }
+
+    /**
+     * Get forum
+     *
+     * @return \ForumBundle\Entity\Forum
+     */
+    public function getForum()
+    {
+        return $this->forum;
     }
 }
