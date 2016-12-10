@@ -3,6 +3,7 @@
 namespace ForumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Forum
@@ -35,6 +36,14 @@ class Forum
      */
     private $slug;
 
+    /**
+    * @ORM\OneToMany(targetEntity="Subject", mappedBy="forum")
+    */
+    private $subjects;
+
+    public function __construct(){
+        $this->products = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -92,5 +101,39 @@ class Forum
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add subject
+     *
+     * @param \ForumBundle\Entity\Subject $subject
+     *
+     * @return Forum
+     */
+    public function addSubject(\ForumBundle\Entity\Subject $subject)
+    {
+        $this->subjects[] = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Remove subject
+     *
+     * @param \ForumBundle\Entity\Subject $subject
+     */
+    public function removeSubject(\ForumBundle\Entity\Subject $subject)
+    {
+        $this->subjects->removeElement($subject);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
     }
 }
