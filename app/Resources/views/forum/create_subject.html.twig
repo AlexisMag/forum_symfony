@@ -5,7 +5,12 @@
         {{title}}
     </h1>
 
-    {{form_start(form)}}
+    {{form_start(form, {
+        'attr':{
+            'method':'post',
+            'action':path('create_subject', {'forum_id': forum_id})
+        }
+    })}}
 
     <div class="form-group">
         {{form_label(form.subject.title, 'Title')}}
@@ -30,12 +35,12 @@
         }} )}}
     </div>
 
+
     <div class="text-center col-md-12">
         {{form_widget(form.save, {'attr':{
             'class':'btn btn-success  '
         }})}}
     </div>
-
     {{form_end(form)}}
     <br>
     <br>

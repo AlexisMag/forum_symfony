@@ -4,6 +4,7 @@ namespace ForumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Forum
@@ -32,6 +33,7 @@ class Forum
     /**
      * @var string
      *
+     * @Gedmo\Slug(fields={"name"}, updatable=false)
      * @ORM\Column(name="slug", type="string", length=100, unique=true)
      */
     private $slug;
@@ -42,7 +44,7 @@ class Forum
     private $subjects;
 
     public function __construct(){
-        $this->products = new ArrayCollection();
+        $this->subjects = new ArrayCollection();
     }
 
     /**

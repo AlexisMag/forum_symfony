@@ -19,6 +19,8 @@ class ForumController extends Controller
     */
     public function test(Request $request){
 
+        $forum = new Forum();
+        $forum->setName("Bien le bonjour");
 
 
         return new Response("<body></body>");
@@ -57,17 +59,36 @@ class ForumController extends Controller
     }
     /**
     * Form to add a message
-    * @Route("/forum/subject/create/{forum_id}", name="create_subject")
+    * @Route("/forum/{forum_id}/create", name="create_subject")
     */
-    public function createSubjectAction($forum_id){
+    public function createSubjectAction($forum_id, Request $request){
+
+        $repository = $this->getDoctrine()->getRepository("ForumBundle:Forum");
+
+        $forum = $repository->findOneById($forum_id);
+
+        $subject = new Subject();
+        $subject->setForum($forum);
 
         $message = new Message();
+        $message->setSubject($subject);
+
+
 
         $form = $this->createForm(MessageType::class, $message);
 
+        if($request->isMethod("POST") && $form->handleRequest($request)->isValid()){            
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            return new Response("<body></body>");
+        }
+
         return $this->render("forum/create_subject.html.twig", array(
             'title' => 'New subject',
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'forum_id' => $forum_id
         ));
     }
 

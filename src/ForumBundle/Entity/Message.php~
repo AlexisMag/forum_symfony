@@ -29,7 +29,7 @@ class Message
     private $content;
 
     /**
-    * @ORM\ManyToOne(targetEntity="Subject", inversedBy="messages")
+    * @ORM\ManyToOne(targetEntity="Subject", inversedBy="messages", cascade={"persist"})
     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
     */
     private $subject;
@@ -67,5 +67,29 @@ class Message
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param \ForumBundle\Entity\Subject $subject
+     *
+     * @return Message
+     */
+    public function setSubject(\ForumBundle\Entity\Subject $subject = null)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return \ForumBundle\Entity\Subject
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

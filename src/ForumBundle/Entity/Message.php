@@ -29,7 +29,7 @@ class Message
     private $content;
 
     /**
-    * @ORM\ManyToOne(targetEntity="Subject", inversedBy="messages")
+    * @ORM\ManyToOne(targetEntity="Subject", inversedBy="messages", cascade={"persist"})
     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
     */
     private $subject;
