@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>
+    {{subject.title}}
+    <br>
+    <small>{{subject.subtitle}}</small>
+</h1>
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">{{subject.title}}</div>
+
+
+  {% for message in subject.messages %}
+
+    {% if loop.first %}
+        <div class="panel-body">
+            <p>
+                {{message.content}}
+            </p>
+        </div>
+        <div class="panel-heading">Responses</div>
+        <ul class="list-group">
+    {% else %}
+        <li class="list-group-item">{{message.content}}</li>
+    {% endif %}
+
+    </ul>
+  {% endfor %}
+
+
+</div>
+
+
+{% endblock %}

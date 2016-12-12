@@ -16,7 +16,7 @@
     <ul class="list-group">
         {% for subject in forum.subjects %}
             <li class="list-group-item">
-                <a href="">
+                <a href="{{path('messages', {'slug':subject.slug} )}}">
                     {{subject.title}}
                 </a>
                 <br>

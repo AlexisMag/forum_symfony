@@ -74,15 +74,15 @@ class ForumController extends Controller
         $message->setSubject($subject);
 
 
-
         $form = $this->createForm(MessageType::class, $message);
 
-        if($request->isMethod("POST") && $form->handleRequest($request)->isValid()){            
-
+        if($request->isMethod("POST") && $form->handleRequest($request)->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
-            return new Response("<body></body>");
+            return $this->redirect($this->generateUrl('messages', array(
+                'slug' => $message->getSubject()->getSlug()
+            )));
         }
 
         return $this->render("forum/create_subject.html.twig", array(
@@ -96,8 +96,15 @@ class ForumController extends Controller
     * Discussion in a forum with messages
     * @Route("/forum/subject/{slug}", name="messages")
     */
-    public function messagesAction(Request $request){
+    public function messagesAction($slug, Request $request){
+        $repository = $this->getDoctrine()->getRepository("ForumBundle:Subject");
 
+        $subject = $repository->findOneBySlug($slug);
+
+        return $this->render('forum/messages.html.twig', array(
+            'title' => $subject->getTitle(),
+            'subject' => $subject
+        ));
     }
 
 }
