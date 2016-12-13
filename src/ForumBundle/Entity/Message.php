@@ -3,6 +3,7 @@
 namespace ForumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Message
@@ -33,6 +34,12 @@ class Message
     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
     */
     private $subject;
+
+    /**
+    * @Gedmo\Timestampable(on="create")
+    * @ORM\Column(type="datetime")
+    */
+    private $created_at;
 
 
     /**
@@ -91,5 +98,29 @@ class Message
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Message
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
     }
 }
