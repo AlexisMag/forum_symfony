@@ -8,6 +8,7 @@
     <small>{{subject.subtitle}}</small>
 </h1>
 
+
 <div class="panel panel-default">
 
   <div class="panel-heading">{{subject.title}}</div>
@@ -29,9 +30,34 @@
 
     </ul>
   {% endfor %}
+</div>
+<hr>
+{{ form_start(form, {
+        'method' : 'POST',
+        'action': path('reply', {'subject_id': subject.id})
+}) }}
 
+<div class="form-group">
+    {{form_label(form.content, 'Your answer')}}
 
+    {{form_widget(form.content, {
+        'attr':{
+            'class':'form-control',
+            'rows':'10'
+        }
+    })}}
+
+    <br>
+    <div class="text-center col-md-12">
+        {{form_widget(form.save, {
+            'attr':{
+                'class':'btn btn-success'
+            },
+            'label':'Reply'
+        })}}
+    </div>
 </div>
 
+{{ form_end(form) }}
 
 {% endblock %}

@@ -11,6 +11,7 @@ use ForumBundle\Entity\Subject;
 use ForumBundle\Entity\Message;
 use ForumBundle\Form\SubjectType;
 use ForumBundle\Form\MessageType;
+use ForumBundle\Form\MessageReplyType;
 
 class ForumController extends Controller
 {
@@ -73,7 +74,6 @@ class ForumController extends Controller
         $message = new Message();
         $message->setSubject($subject);
 
-
         $form = $this->createForm(MessageType::class, $message);
 
         if($request->isMethod("POST") && $form->handleRequest($request)->isValid()){
@@ -93,17 +93,46 @@ class ForumController extends Controller
     }
 
     /**
+    * Reply to a subject
+    * @Route("/forum/subject/{subject_id}/reply", name="reply")
+    */
+    public function replyAction($subject_id, Request $request){
+        $repository = $this->getDoctrine()->getRepository('ForumBundle:Subject');
+
+        $subject = $repository->findOneById($subject_id);
+
+        $message = new Message();
+        $message->setSubject($subject);
+        $form = $this->createForm(MessageReplyType::class, $message);
+
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($message);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('messages', array(
+            'slug' => $subject->getSlug()
+        )));
+    }
+
+    /**
     * Discussion in a forum with messages
     * @Route("/forum/subject/{slug}", name="messages")
     */
     public function messagesAction($slug, Request $request){
         $repository = $this->getDoctrine()->getRepository("ForumBundle:Subject");
-
         $subject = $repository->findOneBySlug($slug);
+
+        $message = new Message();
+        $form = $this->createForm(MessageReplyType::class, $message);
+
+
 
         return $this->render('forum/messages.html.twig', array(
             'title' => $subject->getTitle(),
-            'subject' => $subject
+            'subject' => $subject,
+            'form' => $form->createView()
         ));
     }
 
